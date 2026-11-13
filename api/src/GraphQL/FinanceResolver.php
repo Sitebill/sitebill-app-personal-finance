@@ -123,7 +123,7 @@ final class FinanceResolver
 
         $accounts = [
             'card' => Account::create(['name' => $t('Дебетовая карта', 'Debit card'), 'kind' => 'card', 'opening_balance' => 84000, 'color' => '#6366f1', 'sort' => 1]),
-            'cash' => Account::create(['name' => $t('Наличные', 'Cash'), 'kind' => 'cash', 'opening_balance' => 12000, 'color' => '#10b981', 'sort' => 2]),
+            'cash' => Account::create(['name' => $t('Наличные', 'Cash'), 'kind' => 'cash', 'opening_balance' => 60000, 'color' => '#10b981', 'sort' => 2]),
             'save' => Account::create(['name' => $t('Накопления', 'Savings'), 'kind' => 'savings', 'opening_balance' => 350000, 'color' => '#f59e0b', 'sort' => 3]),
         ];
         $cats = [];
