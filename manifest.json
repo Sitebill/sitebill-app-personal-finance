@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "vendor": { "name": "Lumen", "url": "https://sitebillcms.com/" },
   "license": "MIT",
-  "repository": "https://github.com/lumen-apps/sitebill-app-personal-finance",
+  "repository": "https://github.com/Sitebill/sitebill-app-personal-finance",
   "description": {
     "ru": "Учёт личных финансов: счета, доходы и расходы, категории, бюджеты и наглядные отчёты. Приложение целиком заменяет сайт.",
     "en": "Personal finance tracker: accounts, income and expenses, categories, budgets and clear reports. The app takes over the whole site."
