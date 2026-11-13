@@ -1,0 +1,38 @@
+{
+  "id": "lumen.personal-finance",
+  "name": { "ru": "Личные финансы", "en": "Personal Finance", "sr": "Lične finansije", "tg": "Молияи шахсӣ" },
+  "version": "1.0.0",
+  "vendor": { "name": "Lumen", "url": "https://sitebillcms.com/" },
+  "license": "MIT",
+  "repository": "https://github.com/lumen-apps/sitebill-app-personal-finance",
+  "description": {
+    "ru": "Учёт личных финансов: счета, доходы и расходы, категории, бюджеты и наглядные отчёты. Приложение целиком заменяет сайт.",
+    "en": "Personal finance tracker: accounts, income and expenses, categories, budgets and clear reports. The app takes over the whole site."
+  },
+  "sdk": { "php": "1", "web": "1" },
+  "requires": { "host": ">=1.1" },
+  "provider": "SitebillApps\\Lumen\\PersonalFinance\\PersonalFinanceServiceProvider",
+  "permissions": [],
+  "profiles": ["blank"],
+  "shell": {
+    "mode": "owner",
+    "home": "FinanceHome",
+    "adminDashboard": "FinanceDashboard",
+    "adminMenu": "replace",
+    "accountMenu": "replace",
+    "publicNav": [
+      { "label": { "ru": "Обзор", "en": "Overview", "sr": "Pregled", "tg": "Шарҳ" }, "to": "/" }
+    ]
+  },
+  "admin": {
+    "menu": [
+      { "label": { "ru": "Обзор", "en": "Overview", "sr": "Pregled", "tg": "Шарҳ" }, "icon": "i-lucide-layout-dashboard", "path": "" },
+      { "label": { "ru": "Операции", "en": "Transactions", "sr": "Transakcije", "tg": "Амалиётҳо" }, "icon": "i-lucide-arrow-left-right", "path": "transactions" },
+      { "label": { "ru": "Категории и бюджеты", "en": "Categories & budgets", "sr": "Kategorije i budžeti", "tg": "Категорияҳо ва буҷаҳо" }, "icon": "i-lucide-tags", "path": "categories" },
+      { "label": { "ru": "Счета", "en": "Accounts", "sr": "Računi", "tg": "Ҳисобҳо" }, "icon": "i-lucide-wallet", "path": "accounts" }
+    ],
+    "pages": ["", "transactions", "categories", "accounts"],
+    "widgets": { "admin.dashboard": "FinanceDashboard" }
+  },
+  "web": { "admin": "web/admin.mjs", "site": "web/site.mjs" }
+}

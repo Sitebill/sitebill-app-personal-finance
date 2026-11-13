@@ -1,0 +1,77 @@
+"A money account: cash, card or savings (app lumen.personal-finance)."
+type FinanceAccount {
+    id: ID!
+    name: String!
+    "cash | card | savings"
+    kind: String!
+    opening_balance: Float!
+    color: String!
+}
+
+"Income or expense category; expense categories may carry a monthly budget limit."
+type FinanceCategory {
+    id: ID!
+    name: String!
+    "income | expense"
+    kind: String!
+    icon: String!
+    color: String!
+    monthly_limit: Float
+}
+
+type FinanceTransaction {
+    id: ID!
+    account_id: Int!
+    category_id: Int
+    "income | expense"
+    kind: String!
+    amount: Float!
+    "Y-m-d"
+    occurred_on: String!
+    note: String
+}
+
+extend type Query {
+    financeAccounts: [FinanceAccount!]!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@accounts")
+
+    financeCategories: [FinanceCategory!]!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@categories")
+
+    financeTransactions(from: String @rules(apply: ["nullable", "date_format:Y-m-d"]) to: String @rules(apply: ["nullable", "date_format:Y-m-d"]) limit: Int = 3000): [FinanceTransaction!]!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@transactions")
+}
+
+extend type Mutation {
+    financeSaveAccount(id: ID name: String! @rules(apply: ["required", "max:80"]) kind: String! @rules(apply: ["required", "in:cash,card,savings"]) opening_balance: Float = 0 @rules(apply: ["numeric", "between:-999999999,999999999"]) color: String @rules(apply: ["nullable", "max:20"])): FinanceAccount!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@saveAccount")
+
+    financeDeleteAccount(id: ID!): Boolean!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@deleteAccount")
+
+    financeSaveCategory(id: ID name: String! @rules(apply: ["required", "max:80"]) kind: String! @rules(apply: ["required", "in:income,expense"]) icon: String @rules(apply: ["nullable", "max:8"]) color: String @rules(apply: ["nullable", "max:20"]) monthly_limit: Float @rules(apply: ["nullable", "numeric", "min:0"])): FinanceCategory!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@saveCategory")
+
+    financeDeleteCategory(id: ID!): Boolean!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@deleteCategory")
+
+    financeSaveTransaction(id: ID account_id: Int! @rules(apply: ["required", "integer"]) category_id: Int @rules(apply: ["nullable", "integer"]) kind: String! @rules(apply: ["required", "in:income,expense"]) amount: Float! @rules(apply: ["required", "numeric", "gt:0", "max:999999999"]) occurred_on: String! @rules(apply: ["required", "date_format:Y-m-d"]) note: String @rules(apply: ["nullable", "max:200"])): FinanceTransaction!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@saveTransaction")
+
+    financeDeleteTransaction(id: ID!): Boolean!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@deleteTransaction")
+
+    "Fill an empty ledger with six months of sample data. Returns false when data already exists."
+    financeSeedDemo(locale: String @rules(apply: ["nullable", "in:ru,en,sr,tg"])): Boolean!
+        @guard @can(ability: "admin", model: "Tenant")
+        @field(resolver: "SitebillApps\\Lumen\\PersonalFinance\\GraphQL\\FinanceResolver@seedDemo")
+}
