@@ -413,7 +413,7 @@ export const Overview = defineComponent({
           e('div', { class: 'pf-card' }, e('h2', null, host.t('recent')),
             e('div', { class: 'pf-list' }, monthTx.value.slice(0, 7).map(t => txRow(host, ledger, t, null))),
             monthTx.value.length ? null : e('p', { class: 'pf-sub' }, host.t('no_data')),
-            e('p', { style: 'margin-top:10px' }, e('a', { href: host.localePath('/admin/x/lumen.personal-finance/transactions'), class: 'pf-sub', style: 'text-decoration:underline' }, host.t('all_ops') + ' →')))),
+            e('p', { style: 'margin-top:10px' }, e('a', { href: host.localePath('/admin/x/rumantic.personal-finance/transactions'), class: 'pf-sub', style: 'text-decoration:underline' }, host.t('all_ops') + ' →')))),
 
         modal.value ? e(TxModal, { host, ledger, onClose: () => { modal.value = false } }) : null)
     }
@@ -567,7 +567,7 @@ export const MiniDashboard = defineComponent({
         e('div', { class: 'pf-sub' }, '💰 ' + host.t('app_name') + ' · ' + host.t('this_month')),
         e('div', { class: 'big' }, money(host, ledger.total.value)),
         e('div', { class: 'pf-row', style: 'gap:18px' }, e('span', { class: 'pf-in' }, '↓ ' + money(host, inc)), e('span', { class: 'pf-out' }, '↑ ' + money(host, exp))),
-        e('a', { class: 'pf-sub', style: 'text-decoration:underline', href: host.localePath('/admin/x/lumen.personal-finance') }, host.t('nav_overview') + ' →')))
+        e('a', { class: 'pf-sub', style: 'text-decoration:underline', href: host.localePath('/admin/x/rumantic.personal-finance') }, host.t('nav_overview') + ' →')))
     }
   },
 })

@@ -24,7 +24,7 @@
 - **Light and dark theme** — the CSS is built on the host's theme variables.
 - **Privacy by design** — all reads and writes are admin-only (`@guard` + `@can(admin, Tenant)`); every row carries `tenant_id` and is scoped to the site.
 
-Screens (all under the site root): `/` home · `/admin` dashboard · `/admin/x/lumen.personal-finance/transactions` · `…/categories` · `…/accounts`.
+Screens (all under the site root): `/` home · `/admin` dashboard · `/admin/x/rumantic.personal-finance/transactions` · `…/categories` · `…/accounts`.
 
 ## Install / Установка
 
@@ -39,8 +39,8 @@ curl -fsSL https://sitebillcms.com/install.sh | sh -s -- --profile blank --json
 The script prints the site URL and the admin login/password. Then, from the platform directory:
 
 ```bash
-# build the package (see "Build" below) or download lumen.personal-finance-1.0.0.sbapp from Releases
-docker compose cp lumen.personal-finance-1.0.0.sbapp api:/tmp/app.sbapp
+# build the package (see "Build" below) or download rumantic.personal-finance-1.0.0.sbapp from Releases
+docker compose cp rumantic.personal-finance-1.0.0.sbapp api:/tmp/app.sbapp
 docker compose exec api php artisan apps install /tmp/app.sbapp --shell
 ```
 
@@ -58,7 +58,7 @@ Open the site, sign in as the admin and press **“Load sample data”** — don
 
 ```bash
 docker compose exec api php artisan apps install /tmp/app.sbapp --force      # same or newer version
-docker compose exec api php artisan apps remove lumen.personal-finance --with-data   # drops the tables too
+docker compose exec api php artisan apps remove rumantic.personal-finance --with-data   # drops the tables too
 ```
 
 Browsers cache the app's ES modules by version: when you iterate on the same version number, hard-reload or bump `version`.
@@ -70,7 +70,7 @@ No bundler, no `npm install` — the web part is plain ESM that uses the Vue of 
 ```bash
 npm i -g @sitebill/app-sdk          # or: npx @sitebill/app-sdk
 sitebill-app check                  # validates manifest, PHP syntax, GraphQL guards, locales, widgets
-sitebill-app pack                   # → lumen.personal-finance-1.0.0.sbapp
+sitebill-app pack                   # → rumantic.personal-finance-1.0.0.sbapp
 ```
 
 `check` mirrors the platform's installer rules, so whatever it passes will install.
@@ -85,7 +85,7 @@ api/
   src/Models/{Account,Category,Transaction}   AppModel: tenant scope is applied automatically
   src/GraphQL/FinanceResolver         CRUD + sample-data seeder (ru/en names by locale)
   graphql/schema.graphql              queries/mutations, all under @guard @can(admin, Tenant)
-  database/migrations/                tables app_lumen_personal_finance_{accounts,categories,transactions}
+  database/migrations/                tables app_rumantic_personal_finance_{accounts,categories,transactions}
 web/
   shared.mjs                          the whole UI: ledger composable, charts (inline SVG), pages, modal
   admin.mjs                           admin pages + dashboard widget  (pages: "", transactions, categories, accounts)
@@ -149,7 +149,7 @@ Recurring transactions · transfers between accounts · CSV import of bank state
 
 ```bash
 curl -fsSL https://sitebillcms.com/install.sh | sh -s -- --profile blank --json
-docker compose cp lumen.personal-finance-1.0.0.sbapp api:/tmp/app.sbapp
+docker compose cp rumantic.personal-finance-1.0.0.sbapp api:/tmp/app.sbapp
 docker compose exec api php artisan apps install /tmp/app.sbapp --shell
 ```
 
@@ -161,7 +161,7 @@ docker compose exec api php artisan apps install /tmp/app.sbapp --shell
 
 ## Как это устроено
 
-- **Бэкенд** — три таблицы с префиксом `app_lumen_personal_finance_` и колонкой `tenant_id` (изоляция сайтов), GraphQL-схема расширяет платформенную; все операции закрыты `@guard` + `@can(admin)`.
+- **Бэкенд** — три таблицы с префиксом `app_rumantic_personal_finance_` и колонкой `tenant_id` (изоляция сайтов), GraphQL-схема расширяет платформенную; все операции закрыты `@guard` + `@can(admin)`.
 - **Фронтенд** — `web/shared.mjs` содержит весь интерфейс (графики — SVG, без библиотек), `admin.mjs` — страницы админки и виджет, `site.mjs` — главная сайта.
 - **Баланс счёта** = начальный остаток + доходы − расходы; считается на клиенте.
 - **Грабли, на которых это уже споткнулось:** `host.locale` — это ref (читать `.value`); не включайте `MSYS_NO_PATHCONV` глобально в Git Bash; при переустановке той же версии браузер может держать старый модуль — сделайте жёсткую перезагрузку или поднимите версию.

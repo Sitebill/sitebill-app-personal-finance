@@ -1,4 +1,4 @@
-"A money account: cash, card or savings (app lumen.personal-finance)."
+"A money account: cash, card or savings (app rumantic.personal-finance)."
 type FinanceAccount {
     id: ID!
     name: String!

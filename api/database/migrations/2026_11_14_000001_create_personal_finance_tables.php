@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('app_lumen_personal_finance_accounts', function (Blueprint $table) {
+        Schema::create('app_rumantic_personal_finance_accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tenant_id')->index();
             $table->string('name', 80);
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('app_lumen_personal_finance_categories', function (Blueprint $table) {
+        Schema::create('app_rumantic_personal_finance_categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tenant_id')->index();
             $table->string('name', 80);
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('app_lumen_personal_finance_transactions', function (Blueprint $table) {
+        Schema::create('app_rumantic_personal_finance_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tenant_id')->index();
             $table->unsignedBigInteger('account_id')->index();
@@ -45,8 +45,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('app_lumen_personal_finance_transactions');
-        Schema::dropIfExists('app_lumen_personal_finance_categories');
-        Schema::dropIfExists('app_lumen_personal_finance_accounts');
+        Schema::dropIfExists('app_rumantic_personal_finance_transactions');
+        Schema::dropIfExists('app_rumantic_personal_finance_categories');
+        Schema::dropIfExists('app_rumantic_personal_finance_accounts');
     }
 };
