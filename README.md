@@ -26,6 +26,14 @@
 
 Screens (all under the site root): `/` home · `/admin` dashboard · `/admin/x/rumantic.personal-finance/transactions` · `…/categories` · `…/accounts`.
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Landing for guests](docs/screenshots/01-landing-guest.png) **Landing for guests** | ![Owner dashboard](docs/screenshots/02-home-dashboard.png) **The owner's home: balance, month, budgets** |
+| ![Transactions](docs/screenshots/03-transactions.png) **Transactions** | ![Categories and budgets](docs/screenshots/04-categories-budgets.png) **Categories & budgets** |
+| ![Add transaction](docs/screenshots/06-add-transaction-modal.png) **Add transaction** | ![Dark theme](docs/screenshots/08-home-dark.png) **Dark theme** |
+
 ## Install / Установка
 
 ### 1. A clean instance with Docker (recommended)
