@@ -11,6 +11,7 @@
 | 🧰 App SDK | https://github.com/Sitebill/sitebill-app-sdk |
 | 🚀 Starter | https://github.com/Sitebill/sitebill-app-starter |
 | 📞 Another example | https://github.com/Sitebill/sitebill-app-callback |
+| 🛒 Marketplace | https://sitebillcms.com/apps/rumantic.personal-finance |
 
 ## What you get / Что внутри
 
